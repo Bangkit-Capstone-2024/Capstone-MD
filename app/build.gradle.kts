@@ -21,6 +21,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://api.dev.momee.id/api/v1/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -60,6 +63,7 @@ dependencies {
 
     // android architecture component
     implementation(libs.viewModel)
+    implementation(libs.viewModelLifeCycle)
     implementation(libs.liveData)
     implementation(libs.fragmentKtx)
 
