@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidxActivityKttx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.coil)
+    implementation(libs.uCrop)
+    implementation(libs.lottie)
 
     // network
     implementation(libs.retrofit)
@@ -70,6 +72,9 @@ dependencies {
     // coroutine
     implementation(libs.coroutinesCore)
     implementation(libs.coroutinesAndroid)
+
+    // datastore
+    implementation(libs.dataStore)
 
     // hilt
     implementation(libs.hiltAndroid)
