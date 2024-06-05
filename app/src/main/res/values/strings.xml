@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoMee</string>
+    <string name="app_permission_granted">Permission request granted</string>
+    <string name="app_permission_denied">Permission request denied</string>
+    <string name="app_no_media_selected">No Media Selected</string>
+    <string name="app_canceled">canceled</string>
 </resources>

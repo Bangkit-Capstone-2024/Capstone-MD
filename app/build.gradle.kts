@@ -21,6 +21,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://api.dev.momee.id/api/v1/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -51,6 +54,8 @@ dependencies {
     implementation(libs.androidxActivityKttx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.coil)
+    implementation(libs.uCrop)
+    implementation(libs.lottie)
 
     // network
     implementation(libs.retrofit)
@@ -60,12 +65,16 @@ dependencies {
 
     // android architecture component
     implementation(libs.viewModel)
+    implementation(libs.viewModelLifeCycle)
     implementation(libs.liveData)
     implementation(libs.fragmentKtx)
 
     // coroutine
     implementation(libs.coroutinesCore)
     implementation(libs.coroutinesAndroid)
+
+    // datastore
+    implementation(libs.dataStore)
 
     // hilt
     implementation(libs.hiltAndroid)
