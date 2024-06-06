@@ -1,4 +1,4 @@
-package com.cpstn.momee
+package com.example.momee
 
 import org.junit.Test
 

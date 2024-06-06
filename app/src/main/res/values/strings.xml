@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">MoMee</string>
+    <string name="app_name">Momee</string>
+    <string name="first_start">Nikmati kemudahan merental peralatan bayi dan anak berkualitas tanpa repot</string>
+    <string name="first_startt">Selamat datang di Momee!</string>
+    <string name="get_started">Get Started</string>
+    <string name="aman_dan_terpercaya">Aman dan Terpercaya</string>
+    <string name="setiap_produk_di_momee_telah_melalui_proses_sanitasi_dan_pemeriksaan_kualitas">Setiap produk di Momee telah melalui proses sanitasi dan pemeriksaan kualitas</string>
+    <string name="next">Next</string>
+    <string name="fleksibel_dan_praktis">Fleksibel dan Praktis</string>
+    <string name="hemat_ruang_hemat_biaya_dan_dapatkan_pengalaman_yang_lebih_praktis">Hemat ruang, hemat biaya, dan dapatkan pengalaman yang lebih praktis!</string>
+    <string name="selamat_datang">Selamat datang!</string>
+    <string name="masuk_untuk_melanjutkan_menyewa_peralatan_bayi_dan_anak_dengan_mudah_dan_cepat">Masuk untuk melanjutkan menyewa peralatan bayi dan anak dengan mudah dan cepat</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="default_web_client_id">888204475755-tnigtmpgmj6lm2irvvrl11o5k3n85313.apps.googleusercontent.com</string>
 </resources>
