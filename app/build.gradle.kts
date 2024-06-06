@@ -1,17 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt)
-    id("kotlin-parcelize")
-    kotlin("kapt")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.cpstn.momee"
+    namespace = "com.example.momee"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.cpstn.momee"
+        applicationId = "com.example.momee"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -29,16 +27,15 @@ android {
             )
         }
     }
-    buildFeatures {
-        viewBinding = true
-        buildConfig = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -48,30 +45,12 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-    implementation(libs.androidxActivityKttx)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.coil)
-
-    // network
-    implementation(libs.retrofit)
-    implementation(libs.retrofitGsonConverter)
-    implementation(libs.gson)
-    implementation(libs.chucker)
-
-    // android architecture component
-    implementation(libs.viewModel)
-    implementation(libs.liveData)
-    implementation(libs.fragmentKtx)
-
-    // coroutine
-    implementation(libs.coroutinesCore)
-    implementation(libs.coroutinesAndroid)
-
-    // hilt
-    implementation(libs.hiltAndroid)
-    kapt(libs.hiltCompiler)
-
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.hbb20:ccp:2.7.3")
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
+    implementation ("com.google.firebase:firebase-firestore:25.0.0")
 }
