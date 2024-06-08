@@ -1,19 +1,9 @@
 package com.cpstn.momee.ui.result
 
 import android.net.Uri
-import android.os.Bundle
-import android.security.identity.ResultData
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResult
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.ProductsSearchByImageDomain
 import com.cpstn.momee.databinding.ActivityResultBinding
-import com.cpstn.momee.utils.BaseActivity
-import com.cpstn.momee.utils.parcelable
+import com.cpstn.momee.utils.base.BaseActivity
 import com.cpstn.momee.utils.parcelableArrayList
 import dagger.hilt.android.AndroidEntryPoint
 

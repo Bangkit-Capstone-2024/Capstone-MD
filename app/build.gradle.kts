@@ -57,6 +57,10 @@ dependencies {
     implementation(libs.uCrop)
     implementation(libs.lottie)
 
+    // navigation component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
     // network
     implementation(libs.retrofit)
     implementation(libs.retrofitGsonConverter)

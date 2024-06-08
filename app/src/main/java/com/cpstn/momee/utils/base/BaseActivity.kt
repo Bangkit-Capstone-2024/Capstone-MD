@@ -1,4 +1,4 @@
-package com.cpstn.momee.utils
+package com.cpstn.momee.utils.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

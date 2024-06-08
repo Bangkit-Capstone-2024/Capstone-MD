@@ -1,6 +1,5 @@
 package com.cpstn.momee.utils
 
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 
@@ -9,6 +8,10 @@ object API {
     const val MESSAGE = "message"
 
     const val IMAGE = "image"
+}
+
+object EXTRAS {
+    const val DATA = "data"
 }
 
 object Constant {

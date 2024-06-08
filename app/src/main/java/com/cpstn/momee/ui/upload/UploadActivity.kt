@@ -1,10 +1,8 @@
 package com.cpstn.momee.ui.upload
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -20,7 +18,7 @@ import com.cpstn.momee.network.Result
 import com.cpstn.momee.network.response.MediaType
 import com.cpstn.momee.ui.result.ResultActivity
 import com.cpstn.momee.utils.API
-import com.cpstn.momee.utils.BaseActivity
+import com.cpstn.momee.utils.base.BaseActivity
 import com.cpstn.momee.utils.FileUtils
 import com.cpstn.momee.utils.FileUtils.Companion.reduceFileImage
 import com.cpstn.momee.utils.startActivityTo

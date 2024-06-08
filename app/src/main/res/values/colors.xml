@@ -30,6 +30,7 @@
     <color name="color_shadow">#000000</color>
     <color name="color_surfaceTint">#006E28</color>
     <color name="color_outlineVariant">#C2C9BD</color>
-    <color name="color_scrim">#000000</color>
     <color name="color_transparent_black">#80000000</color>
+    <color name="color_transparent">#000000</color>
+    <color name="color_grey_100">#E3E3E7</color>
 </resources>

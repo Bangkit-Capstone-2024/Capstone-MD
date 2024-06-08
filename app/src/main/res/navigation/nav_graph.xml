@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.cpstn.momee.ui.homepage.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/discovery"
+        android:name="com.cpstn.momee.ui.discovery.DiscoveryFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_discovery" />
+    <fragment
+        android:id="@+id/bookmark"
+        android:name="com.cpstn.momee.ui.bookmark.BookmarkFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/profil"
+        android:name="com.cpstn.momee.ui.profile.ProfileFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_profile" />
+
+
+</navigation>

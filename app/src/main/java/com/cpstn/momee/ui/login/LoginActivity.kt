@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import com.cpstn.momee.databinding.ActivityLoginBinding
 import com.cpstn.momee.network.Result
 import com.cpstn.momee.ui.upload.UploadActivity
-import com.cpstn.momee.utils.BaseActivity
+import com.cpstn.momee.utils.base.BaseActivity
 import com.cpstn.momee.utils.startActivityTo
 import dagger.hilt.android.AndroidEntryPoint
 
