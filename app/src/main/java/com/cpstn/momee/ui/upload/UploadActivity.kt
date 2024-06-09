@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.ProductsSearchByImageDomain
 import com.cpstn.momee.databinding.ActivityUploadBinding
-import com.cpstn.momee.network.Result
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.network.response.MediaType
 import com.cpstn.momee.ui.result.ResultActivity
 import com.cpstn.momee.utils.API
@@ -123,16 +123,16 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
     }
 
     private fun setupObserver() {
-        viewModel.uploadResult.observe(this) {
+        viewModel.uploadDataResult.observe(this) {
             when (it) {
-                is Result.Loading -> {
+                is DataResult.Loading -> {
                     showLoading(true)
                 }
-                is Result.Error -> {
+                is DataResult.Error -> {
                     showLoading(false)
                     showToast("Tidak dapat mengupload file")
                 }
-                is Result.Success -> {
+                is DataResult.Success -> {
                     showLoading(false)
                     moveToResult(it.data?.data ?: listOf())
                 }

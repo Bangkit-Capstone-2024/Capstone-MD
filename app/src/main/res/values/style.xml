@@ -11,6 +11,10 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="Layout.Horizontal" parent="Layout">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="Layout.Vertical" parent="Layout">
         <item name="android:orientation">vertical</item>
     </style>
@@ -60,6 +64,10 @@
         <item name="android:textSize">@dimen/font_12</item>
         <item name="lineHeight">@dimen/size_24</item>
         <item name="android:textColor">@color/color_inverseSurface</item>
+    </style>
+
+    <style name="circle">
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

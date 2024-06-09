@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/profil"
-        android:name="com.cpstn.momee.ui.profile.ProfileFragment"
+        android:name="com.cpstn.momee.ui.chat.ChatListFragment"
         android:label="Home"
         tools:layout="@layout/fragment_profile" />
 

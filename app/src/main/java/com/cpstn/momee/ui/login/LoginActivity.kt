@@ -3,9 +3,9 @@ package com.cpstn.momee.ui.login
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.cpstn.momee.MainActivity
 import com.cpstn.momee.databinding.ActivityLoginBinding
-import com.cpstn.momee.network.Result
-import com.cpstn.momee.ui.upload.UploadActivity
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.utils.base.BaseActivity
 import com.cpstn.momee.utils.startActivityTo
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,22 +33,22 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private fun setupObserver() {
         viewModel.userSessionResult.observe(this) {
             if (it.userToken.isNotEmpty()) {
-                startActivityTo(UploadActivity::class.java)
+                startActivityTo(MainActivity::class.java)
             }
         }
-        viewModel.loginResult.observe(this) {
+        viewModel.loginDataResult.observe(this) {
             when (it) {
-                is Result.Loading -> {
+                is DataResult.Loading -> {
                     binding.pbLoading.isVisible = true
                 }
-                is Result.Error -> {
+                is DataResult.Error -> {
                     binding.pbLoading.isVisible = false
                     Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show()
                 }
-                is Result.Success -> {
+                is DataResult.Success -> {
                     binding.pbLoading.isVisible = false
-                    viewModel.saveUserSession(it.data?.data?.token.orEmpty())
-                    startActivityTo(UploadActivity::class.java)
+                    viewModel.saveUserSession(it.data?.data?.token.orEmpty(), it.data?.data?.email.orEmpty())
+                    startActivityTo(MainActivity::class.java)
                     Toast.makeText(this, "Login Success with login info name ${it.data?.data?.username}", Toast.LENGTH_SHORT).show()
                 }
             }

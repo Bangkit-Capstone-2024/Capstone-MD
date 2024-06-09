@@ -4,7 +4,7 @@ import com.cpstn.momee.data.domain.AuthDomain
 import com.cpstn.momee.data.domain.UserDataPreference
 import com.cpstn.momee.data.mapper.AuthMapper
 import com.cpstn.momee.data.payload.RegisterPayload
-import com.cpstn.momee.network.Result
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.network.datasource.AuthDataSource
 import com.cpstn.momee.network.response.AuthResponse
 import com.cpstn.momee.preference.UserPreference
@@ -17,9 +17,9 @@ import org.json.JSONObject
 
 
 interface AuthRepository {
-    fun register(registerPayload: RegisterPayload): Flow<Result<AuthDomain.Result>>
-    fun login(email: String, password: String): Flow<Result<AuthDomain.Result>>
-    fun saveSession(userToken: String)
+    fun register(registerPayload: RegisterPayload): Flow<DataResult<AuthDomain.Result>>
+    fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>>
+    fun saveSession(userToken: String, userEmail: String)
     fun getUserSession(): Flow<UserDataPreference>
     fun logout()
 }
@@ -30,7 +30,7 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     override fun register(registerPayload: RegisterPayload) = flow {
-        emit(Result.Loading)
+        emit(DataResult.Loading)
         val response = authDataSource.register(
             registerPayload.username,
             registerPayload.email,
@@ -39,37 +39,37 @@ class AuthRepositoryImpl(
         try {
             if (response.isSuccessful) {
                 val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
-                emit(Result.Success(mapper))
+                emit(DataResult.Success(mapper))
             } else {
                 val errorBody = response.errorBody()?.string().orEmpty()
                 val message = JSONObject(errorBody).getString("message")
-                emit(Result.Error(message))
+                emit(DataResult.Error(message))
             }
         } catch (e: Exception) {
-            emit(Result.Error(e.message.orEmpty()))
+            emit(DataResult.Error(e.message.orEmpty()))
         }
     }
 
-    override fun login(email: String, password: String): Flow<Result<AuthDomain.Result>> = flow {
-        emit(Result.Loading)
+    override fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>> = flow {
+        emit(DataResult.Loading)
         val response = authDataSource.login(email, password)
         try {
             if (response.isSuccessful) {
                 val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
-                emit(Result.Success(mapper))
+                emit(DataResult.Success(mapper))
             } else {
                 val errorBody = response.errorBody()?.string().orEmpty()
                 val message = JSONObject(errorBody).getString("message")
-                emit(Result.Error(message))
+                emit(DataResult.Error(message))
             }
         } catch (e: Exception) {
-            emit(Result.Error(e.message.orEmpty()))
+            emit(DataResult.Error(e.message.orEmpty()))
         }
     }
 
-    override fun saveSession(userToken: String) {
+    override fun saveSession(userToken: String, userEmail: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            userPreference.saveUserSession(userToken = userToken)
+            userPreference.saveUserSession(userToken = userToken, userEmail)
         }
     }
 

@@ -4,7 +4,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.cpstn.momee.databinding.ActivityRegisterBinding
-import com.cpstn.momee.network.Result
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.ui.login.LoginActivity
 import com.cpstn.momee.utils.base.BaseActivity
 import com.cpstn.momee.utils.startActivityTo
@@ -33,16 +33,16 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     }
 
     private fun setupObserver() {
-        viewModel.registerResult.observe(this) {
+        viewModel.registerDataResult.observe(this) {
             when (it) {
-                is Result.Loading -> {
+                is DataResult.Loading -> {
                     binding.pbLoading.isVisible = true
                 }
-                is Result.Error -> {
+                is DataResult.Error -> {
                     binding.pbLoading.isVisible = false
                     Toast.makeText(this, "Register Error", Toast.LENGTH_SHORT).show()
                 }
-                is Result.Success -> {
+                is DataResult.Success -> {
                     binding.pbLoading.isVisible = false
                     startActivityTo(LoginActivity::class.java)
                     Toast.makeText(this, "Register Success with login info name ${it.data?.data?.username}", Toast.LENGTH_SHORT).show()

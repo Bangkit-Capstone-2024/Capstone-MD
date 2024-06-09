@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
     id("kotlin-parcelize")
     kotlin("kapt")
 }
@@ -9,6 +10,12 @@ plugins {
 android {
     namespace = "com.cpstn.momee"
     compileSdk = 34
+
+    packaging {
+        resources {
+            excludes += "META-INF/DEPENDENCIES"
+        }
+    }
 
     defaultConfig {
         applicationId = "com.cpstn.momee"
@@ -83,6 +90,13 @@ dependencies {
     // hilt
     implementation(libs.hiltAndroid)
     kapt(libs.hiltCompiler)
+
+    // firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
+    implementation(libs.google.auth.library.oauth2.http)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

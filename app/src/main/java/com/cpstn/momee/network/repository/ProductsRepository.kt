@@ -2,7 +2,7 @@ package com.cpstn.momee.network.repository
 
 import com.cpstn.momee.data.domain.ProductsSearchByImageDomain
 import com.cpstn.momee.data.mapper.ProductsSearchByImageMapper
-import com.cpstn.momee.network.Result
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.network.datasource.ProductsDataSource
 import com.cpstn.momee.network.response.ProductsSearchByImageResponse
 import kotlinx.coroutines.flow.Flow
@@ -11,24 +11,24 @@ import okhttp3.MultipartBody
 import org.json.JSONObject
 
 interface ProductsRepository {
-    fun searchByImage(image: MultipartBody.Part) : Flow<Result<ProductsSearchByImageDomain.Result>>
+    fun searchByImage(image: MultipartBody.Part) : Flow<DataResult<ProductsSearchByImageDomain.Result>>
 }
 
 class ProductsRepositoryImpl(private val productsDataSource: ProductsDataSource): ProductsRepository {
     override fun searchByImage(image: MultipartBody.Part) = flow {
-        emit(Result.Loading)
+        emit(DataResult.Loading)
         val response = productsDataSource.uploadImage(image)
         try {
             if (response.isSuccessful) {
                 val mapper = ProductsSearchByImageMapper().map(response.body() ?: ProductsSearchByImageResponse.Result())
-                emit(Result.Success(mapper))
+                emit(DataResult.Success(mapper))
             } else {
                 val errorBody = response.errorBody()?.string().orEmpty()
                 val message = JSONObject(errorBody).getString("message")
-                emit(Result.Error(message))
+                emit(DataResult.Error(message))
             }
         } catch (e: Exception) {
-            emit(Result.Error(e.message.orEmpty()))
+            emit(DataResult.Error(e.message.orEmpty()))
         }
     }
 

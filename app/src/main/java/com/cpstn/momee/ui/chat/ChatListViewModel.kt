@@ -1,35 +1,37 @@
-package com.cpstn.momee.ui.login
+package com.cpstn.momee.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cpstn.momee.data.domain.AuthDomain
 import com.cpstn.momee.data.domain.UserDataPreference
+import com.cpstn.momee.data.domain.UserListDomain
 import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.network.repository.AuthRepository
+import com.cpstn.momee.network.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
+class ChatListViewModel @Inject constructor(
+    private val chatRepository: ChatRepository,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    private var _loginDataResult: MutableLiveData<DataResult<AuthDomain.Result>> = MutableLiveData()
-    val loginDataResult: LiveData<DataResult<AuthDomain.Result>> = _loginDataResult
+    private var _userListResult: MutableLiveData<DataResult<UserListDomain>> = MutableLiveData()
+    val userListResult: LiveData<DataResult<UserListDomain>> = _userListResult
 
     private var _userSessionResult: MutableLiveData<UserDataPreference> = MutableLiveData()
     val userSessionResult: LiveData<UserDataPreference> = _userSessionResult
 
-    fun login(email: String, password: String) {
+    fun getUserList() {
         viewModelScope.launch {
-            authRepository.login(email, password).collect {
-                _loginDataResult.value = it
+            chatRepository.getUserList().collect {
+                _userListResult.value = it
             }
         }
     }
-
-    fun saveUserSession(userToken: String, userEmail: String) = authRepository.saveSession(userToken, userEmail)
 
     fun getUserSession() {
         viewModelScope.launch {
