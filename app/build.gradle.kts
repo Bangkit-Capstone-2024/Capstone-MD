@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.uCrop)
     implementation(libs.lottie)
+    implementation(libs.androidx.core)
 
     // navigation component
     implementation(libs.androidx.navigation.fragment.ktx)

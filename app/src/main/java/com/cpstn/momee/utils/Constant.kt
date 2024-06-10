@@ -10,6 +10,12 @@ object API {
     const val IMAGE = "image"
 }
 
+object Firebase {
+    const val DB_FIREBASE_URL = ""
+    const val FCM_URL = ""
+    const val SERVICE_URL = ""
+}
+
 object EXTRAS {
     const val DATA = "data"
 }

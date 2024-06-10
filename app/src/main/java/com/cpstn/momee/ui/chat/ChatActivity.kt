@@ -9,6 +9,7 @@ import com.cpstn.momee.ui.chat.adapter.ChatAdapter
 import com.cpstn.momee.ui.chat.adapter.Message
 import com.cpstn.momee.utils.Constant
 import com.cpstn.momee.utils.EXTRAS
+import com.cpstn.momee.utils.Firebase
 import com.cpstn.momee.utils.Notification
 import com.cpstn.momee.utils.StringHelper.encode
 import com.cpstn.momee.utils.base.BaseActivity
@@ -46,7 +47,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
     override fun setupView() {
 
         mObjRef = FirebaseDatabase
-            .getInstance("")
+            .getInstance(Firebase.DB_FIREBASE_URL)
             .getReference()
 
 
@@ -95,7 +96,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
             val message = binding.etMessage.text.toString()
             val now = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
             val messageObj = Message(message = message, senderId = currentUserEmail, date = now)
-            Notification().send(fcmToken = otherUserFcmToken, "Ada pesan buat kamu", messageObj.message, Dispatchers.IO)
+            Notification.send(fcmToken = otherUserFcmToken, "Ada pesan buat kamu", messageObj.message, Dispatchers.IO)
             binding.etMessage.setText("")
             mObjRef.child("chats").child(senderRoom).child("message").push()
                 .setValue(messageObj).addOnSuccessListener {

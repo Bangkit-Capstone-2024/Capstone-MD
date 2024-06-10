@@ -11,7 +11,7 @@ class AccessToken {
 
     fun getAccessToken(): String {
         return try {
-            val jsonString = ""
+            val jsonString = Firebase.SERVICE_URL
             val inputStream = ByteArrayInputStream(jsonString.toByteArray(StandardCharsets.UTF_8))
             val googleCredential = GoogleCredentials.fromStream(inputStream).createScoped(arrayListOf(firebaseMessagingScope))
             googleCredential.refresh()

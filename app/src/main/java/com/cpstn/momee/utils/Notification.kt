@@ -11,9 +11,9 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.coroutines.CoroutineContext
 
-class Notification {
+object Notification {
 
-    private val postUrl = ""
+    private const val POST_URL = Firebase.FCM_URL
 
     fun send(fcmToken: String, title: String, body: String, dispatcher: CoroutineContext) {
         CoroutineScope(dispatcher).launch {
@@ -31,7 +31,7 @@ class Notification {
             val stringBuilder = StringBuilder()
 
             try {
-                val url = URL(postUrl)
+                val url = URL(POST_URL)
                 urlConnection = url.openConnection() as HttpURLConnection
                 urlConnection.requestMethod = "POST"
                 urlConnection.setRequestProperty("Content-Type", "application/json")
