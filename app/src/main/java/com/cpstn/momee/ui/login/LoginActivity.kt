@@ -41,15 +41,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 is DataResult.Loading -> {
                     binding.pbLoading.isVisible = true
                 }
+
                 is DataResult.Error -> {
                     binding.pbLoading.isVisible = false
                     Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show()
                 }
+
                 is DataResult.Success -> {
                     binding.pbLoading.isVisible = false
-                    viewModel.saveUserSession(it.data?.data?.token.orEmpty(), it.data?.data?.email.orEmpty())
+                    viewModel.saveUserSession(
+                        it.data?.data?.token.orEmpty(),
+                        it.data?.data?.username.orEmpty(),
+                        it.data?.data?.email.orEmpty()
+                    )
                     startActivityTo(MainActivity::class.java)
-                    Toast.makeText(this, "Login Success with login info name ${it.data?.data?.username}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Login Success with login info name ${it.data?.data?.username}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

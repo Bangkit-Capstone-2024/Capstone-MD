@@ -15,15 +15,16 @@ object Notification {
 
     private const val POST_URL = Firebase.FCM_URL
 
-    fun send(fcmToken: String, title: String, body: String, dispatcher: CoroutineContext) {
+    fun sendChatNotification(fcmToken: String, title: String, receiver: String, body: String, dispatcher: CoroutineContext) {
         CoroutineScope(dispatcher).launch {
             val notificationObj = JSONObject().apply {
                 put("title", title)
                 put("body", body)
+                put("receiver", receiver)
             }
             val messageObject = JSONObject().apply {
                 put("token", fcmToken)
-                put("notification", notificationObj)
+                put("data", notificationObj)
             }
             val jsonBody = JSONObject().apply { put("message", messageObject) }
             var urlConnection: HttpURLConnection? = null
@@ -35,7 +36,7 @@ object Notification {
                 urlConnection = url.openConnection() as HttpURLConnection
                 urlConnection.requestMethod = "POST"
                 urlConnection.setRequestProperty("Content-Type", "application/json")
-                urlConnection.setRequestProperty("Authorization", "Bearer ${AccessToken().getAccessToken()}")
+                urlConnection.setRequestProperty("Authorization", "Bearer ${AccessToken.getAccessToken()}")
                 urlConnection.doOutput = true
 
                 // Tulis body JSON ke output stream

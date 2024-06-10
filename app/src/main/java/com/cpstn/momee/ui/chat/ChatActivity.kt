@@ -2,6 +2,7 @@ package com.cpstn.momee.ui.chat
 
 import android.annotation.SuppressLint
 import androidx.activity.viewModels
+import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.UserFirebase
 import com.cpstn.momee.data.domain.UserListDomain
 import com.cpstn.momee.databinding.ActivityChatBinding
@@ -56,7 +57,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
         setupObserver()
         with(binding) {
             tvUserName.text = receiverUserData.username
-            etMessage.setHint("Ketik pesan")
+            etMessage.setHint(getString(R.string.app_type_message))
         }
     }
 
@@ -71,10 +72,11 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
         senderRoom = "${receiverUserData.email} $currentUserEmail".encode()
         receiverRoom = "$currentUserEmail ${receiverUserData.email}".encode()
 
-        mObjRef.child("users").child(receiverUserData.email.orEmpty().encode()).get().addOnSuccessListener {
-            val data = it.getValue(UserFirebase::class.java)
-            otherUserFcmToken = data?.fcmToken.orEmpty()
-        }
+        mObjRef.child("users").child(receiverUserData.email.orEmpty().encode()).get()
+            .addOnSuccessListener {
+                val data = it.getValue(UserFirebase::class.java)
+                otherUserFcmToken = data?.fcmToken.orEmpty()
+            }
         mObjRef.child("chats").child(senderRoom).child("message")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
@@ -89,21 +91,25 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
                     mAdapter?.notifyDataSetChanged()
                 }
 
-                override fun onCancelled(error: DatabaseError) { }
+                override fun onCancelled(error: DatabaseError) {}
             })
         binding.ivSend.setOnClickListener {
             binding.etMessage.hideKeyboard()
             val message = binding.etMessage.text.toString()
             val now = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
             val messageObj = Message(message = message, senderId = currentUserEmail, date = now)
-            Notification.send(fcmToken = otherUserFcmToken, "Ada pesan buat kamu", messageObj.message, Dispatchers.IO)
+            Notification.sendChatNotification(
+                fcmToken = otherUserFcmToken,
+                receiverUserData.username,
+                receiverUserData.email.orEmpty(),
+                messageObj.message,
+                Dispatchers.IO
+            )
             binding.etMessage.setText("")
             mObjRef.child("chats").child(senderRoom).child("message").push()
                 .setValue(messageObj).addOnSuccessListener {
                     mObjRef.child("chats").child(receiverRoom).child("message").push()
-                        .setValue(messageObj).addOnSuccessListener {
-
-                        }
+                        .setValue(messageObj).addOnSuccessListener { }
                 }
         }
     }

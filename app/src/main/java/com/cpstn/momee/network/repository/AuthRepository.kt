@@ -19,7 +19,7 @@ import org.json.JSONObject
 interface AuthRepository {
     fun register(registerPayload: RegisterPayload): Flow<DataResult<AuthDomain.Result>>
     fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>>
-    fun saveSession(userToken: String, userEmail: String)
+    fun saveSession(userToken: String, userName: String, userEmail: String)
     fun getUserSession(): Flow<UserDataPreference>
     fun logout()
 }
@@ -50,24 +50,25 @@ class AuthRepositoryImpl(
         }
     }
 
-    override fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>> = flow {
-        emit(DataResult.Loading)
-        val response = authDataSource.login(email, password)
-        try {
-            if (response.isSuccessful) {
-                val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
-                emit(DataResult.Success(mapper))
-            } else {
-                val errorBody = response.errorBody()?.string().orEmpty()
-                val message = JSONObject(errorBody).getString("message")
-                emit(DataResult.Error(message))
+    override fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>> =
+        flow {
+            emit(DataResult.Loading)
+            val response = authDataSource.login(email, password)
+            try {
+                if (response.isSuccessful) {
+                    val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
+                    emit(DataResult.Success(mapper))
+                } else {
+                    val errorBody = response.errorBody()?.string().orEmpty()
+                    val message = JSONObject(errorBody).getString("message")
+                    emit(DataResult.Error(message))
+                }
+            } catch (e: Exception) {
+                emit(DataResult.Error(e.message.orEmpty()))
             }
-        } catch (e: Exception) {
-            emit(DataResult.Error(e.message.orEmpty()))
         }
-    }
 
-    override fun saveSession(userToken: String, userEmail: String) {
+    override fun saveSession(userToken: String, userName: String, userEmail: String) {
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.saveUserSession(userToken = userToken, userEmail)
         }

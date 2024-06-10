@@ -1,11 +1,13 @@
 package com.cpstn.momee
 
 import android.os.StrictMode
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.cpstn.momee.data.domain.UserFirebase
 import com.cpstn.momee.databinding.ActivityMainBinding
+import com.cpstn.momee.utils.AccessToken
 import com.cpstn.momee.utils.StringHelper.encode
 import com.cpstn.momee.utils.base.BaseActivity
 import com.google.firebase.database.DatabaseReference
@@ -38,6 +40,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+
+        Log.i("zxc", AccessToken.getAccessToken())
     }
 
     private fun setupObserver() {

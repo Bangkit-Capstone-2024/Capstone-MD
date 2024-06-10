@@ -9,6 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.cpstn.momee.data.domain.UserDataPreference
 import com.cpstn.momee.utils.Constant.EMPTY_STRING
 import com.cpstn.momee.utils.Preference.USER_EMAIL
+import com.cpstn.momee.utils.Preference.USER_NAME
 import com.cpstn.momee.utils.Preference.USER_TOKEN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,14 +22,20 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
         return dataStore.data.map { preference ->
             UserDataPreference(
                 userToken = preference[USER_TOKEN] ?: EMPTY_STRING,
+                userName = preference[USER_NAME] ?: EMPTY_STRING,
                 userEmail = preference[USER_EMAIL] ?: EMPTY_STRING,
             )
         }
     }
 
-    suspend fun saveUserSession(userToken: String? = null, userEmail: String? = null) {
+    suspend fun saveUserSession(
+        userToken: String? = null,
+        userName: String? = null,
+        userEmail: String? = null
+    ) {
         dataStore.edit { preference ->
             userToken?.let { preference[USER_TOKEN] = it }
+            userName?.let { preference[USER_NAME] = it }
             userEmail?.let { preference[USER_EMAIL] = it }
         }
     }
@@ -36,6 +43,7 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
     suspend fun clearSession() {
         dataStore.edit { preferences ->
             preferences.remove(USER_TOKEN)
+            preferences.remove(USER_NAME)
             preferences.remove(USER_EMAIL)
         }
     }

@@ -5,9 +5,9 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-class AccessToken {
+object AccessToken {
 
-    private val firebaseMessagingScope = "https://www.googleapis.com/auth/firebase.messaging"
+    private const val firebaseMessagingScope = "https://www.googleapis.com/auth/firebase.messaging"
 
     fun getAccessToken(): String {
         return try {

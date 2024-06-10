@@ -20,6 +20,10 @@ object EXTRAS {
     const val DATA = "data"
 }
 
+object NOTIFICATION_ACTION {
+    const val CHAT = "chat"
+}
+
 object Constant {
     const val EMPTY_STRING = ""
     const val SPACE = " "
@@ -29,5 +33,6 @@ object Constant {
 
 object Preference {
     val USER_TOKEN = stringPreferencesKey("user_token")
+    val USER_NAME = stringPreferencesKey("user_name")
     val USER_EMAIL = stringPreferencesKey("user_email")
 }
