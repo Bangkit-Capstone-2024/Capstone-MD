@@ -43,6 +43,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/container_bottom"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:stackFromEnd="true"
         tools:listitem="@layout/item_chat_send" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

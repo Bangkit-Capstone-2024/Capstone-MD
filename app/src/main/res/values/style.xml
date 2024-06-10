@@ -26,43 +26,37 @@
 
     <style name="Font.Body1" parent="Font">
         <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">@dimen/font_20</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_18</item>
         <item name="android:textColor">@color/color_onBackground</item>
     </style>
 
     <style name="Font.Body2" parent="Font">
         <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">@dimen/font_18</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_16</item>
         <item name="android:textColor">@color/color_onBackground</item>
     </style>
 
     <style name="Font.Body3" parent="Font">
         <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">@dimen/font_16</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_14</item>
         <item name="android:textColor">@color/color_onBackground</item>
     </style>
 
     <style name="Font.Paragraph1" parent="Font">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">@dimen/font_16</item>
-        <item name="lineHeight">@dimen/size_24</item>
         <item name="android:textColor">@color/color_inverseSurface</item>
     </style>
 
     <style name="Font.Paragraph2" parent="Font">
-        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">@dimen/font_14</item>
-        <item name="lineHeight">@dimen/size_24</item>
         <item name="android:textColor">@color/color_inverseSurface</item>
     </style>
 
     <style name="Font.Label1" parent="Font">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">@dimen/font_12</item>
-        <item name="lineHeight">@dimen/size_24</item>
         <item name="android:textColor">@color/color_inverseSurface</item>
     </style>
 

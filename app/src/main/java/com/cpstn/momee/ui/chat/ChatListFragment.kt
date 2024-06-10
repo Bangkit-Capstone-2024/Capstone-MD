@@ -3,7 +3,9 @@ package com.cpstn.momee.ui.chat
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.cpstn.momee.MainViewModel
 import com.cpstn.momee.data.domain.UserListDomain
 import com.cpstn.momee.databinding.FragmentChatListBinding
 import com.cpstn.momee.network.DataResult
@@ -19,8 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChatListFragment : BaseFragment<FragmentChatListBinding>(FragmentChatListBinding::inflate) {
 
     private val viewModel: ChatListViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private var mAdapter: ChatListAdapter? = null
+    private var currentUserEmail: String = ""
 
     override fun setupView() {
 
@@ -29,6 +33,7 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>(FragmentChatListB
     }
 
     private fun setupObserver() {
+        currentUserEmail = mainViewModel.currentUserInfo?.userEmail.orEmpty()
         viewModel.userListResult.observe(viewLifecycleOwner) {
             when (it) {
                 is DataResult.Loading -> {
@@ -49,7 +54,8 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>(FragmentChatListB
     }
 
     private fun setupData(data: UserListDomain) = with(binding) {
-        mAdapter = ChatListAdapter(ArrayList(data.query))
+        val userList = data.query.filter { it.email != currentUserEmail }
+        mAdapter = ChatListAdapter(ArrayList(userList))
         mAdapter?.setupListener(object : ItemListener {
             override fun onItemClick(position: Int) {
                 val item = mAdapter?.getItemPosition(position)

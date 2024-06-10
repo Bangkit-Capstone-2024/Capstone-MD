@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:gravity="end"
     android:paddingHorizontal="@dimen/size_16"
-    android:paddingTop="@dimen/size_16">
+    android:paddingTop="@dimen/size_16"
+    android:paddingBottom="@dimen/size_8">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         style="@style/Layout.Vertical"

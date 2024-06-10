@@ -7,4 +7,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_see_more">Baca lebih banyak</string>
     <string name="app_type_message">Ketik pesan</string>
+    <string name="app_home">Beranda</string>
+    <string name="app_chat">Chat</string>
+    <string name="app_bookmark">Simpan</string>
+    <string name="app_profile">Profil</string>
+    <string name="app_account">Akun</string>
+    <string name="app_personal_data">Data Diri</string>
+    <string name="app_logout">Keluar</string>
+    <string name="app_tenant">Informasi Penyewa</string>
 </resources>

@@ -11,19 +11,19 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/discovery"
-        android:name="com.cpstn.momee.ui.discovery.DiscoveryFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_discovery" />
+        android:id="@+id/chat"
+        android:name="com.cpstn.momee.ui.chat.ChatListFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat_list" />
     <fragment
         android:id="@+id/bookmark"
         android:name="com.cpstn.momee.ui.bookmark.BookmarkFragment"
-        android:label="Home"
+        android:label="Bookmark"
         tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/profil"
-        android:name="com.cpstn.momee.ui.chat.ChatListFragment"
-        android:label="Home"
+        android:name="com.cpstn.momee.ui.account.AccountFragment"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
 

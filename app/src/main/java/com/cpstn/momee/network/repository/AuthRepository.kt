@@ -21,7 +21,7 @@ interface AuthRepository {
     fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>>
     fun saveSession(userToken: String, userName: String, userEmail: String)
     fun getUserSession(): Flow<UserDataPreference>
-    fun logout()
+    fun logout() : Flow<DataResult<AuthDomain.Result>>
 }
 
 class AuthRepositoryImpl(
@@ -70,15 +70,29 @@ class AuthRepositoryImpl(
 
     override fun saveSession(userToken: String, userName: String, userEmail: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            userPreference.saveUserSession(userToken = userToken, userEmail)
+            userPreference.saveUserSession(userToken = userToken, userName, userEmail)
         }
     }
 
     override fun getUserSession() = userPreference.getUserSession()
 
-    override fun logout() {
-        CoroutineScope(Dispatchers.IO).launch {
-            userPreference.clearSession()
+    override fun logout() = flow {
+        emit(DataResult.Loading)
+        val response = authDataSource.logout()
+        try {
+            if (response.isSuccessful) {
+                val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
+                emit(DataResult.Success(mapper))
+                CoroutineScope(Dispatchers.IO).launch {
+                    userPreference.clearSession()
+                }
+            } else {
+                val errorBody = response.errorBody()?.string().orEmpty()
+                val message = JSONObject(errorBody).getString("message")
+                emit(DataResult.Error(message))
+            }
+        } catch (e: Exception) {
+            emit(DataResult.Error(e.message.orEmpty()))
         }
     }
 }

@@ -17,6 +17,8 @@ class MainViewModel @Inject constructor(private val authRepository: AuthReposito
     private var _userSessionResult: MutableLiveData<UserDataPreference> = MutableLiveData()
     val userSessionResult: LiveData<UserDataPreference> = _userSessionResult
 
+    var currentUserInfo: UserDataPreference? = UserDataPreference()
+
     fun getUserSession() {
         viewModelScope.launch {
             authRepository.getUserSession().collect {

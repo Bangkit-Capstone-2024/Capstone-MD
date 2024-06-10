@@ -37,8 +37,10 @@ fun Activity.startActivityTo(to: Class<*>, bundle: Bundle) {
     startActivity(intent)
 }
 
-fun Fragment.startActivityTo(to: Class<*>) {
-    val intent = Intent(requireContext(), to)
+fun Fragment.startActivityTo(to: Class<*>, isClearAllTask: Boolean = false) {
+    val intent = Intent(requireContext(), to).apply {
+        if (isClearAllTask) addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    }
     startActivity(intent)
 }
 

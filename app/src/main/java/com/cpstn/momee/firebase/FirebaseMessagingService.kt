@@ -59,7 +59,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             getPendingIntent(NOTIFICATION_ID, PendingIntent.FLAG_UPDATE_CURRENT)
         }
         val notificationBuilder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_send)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setContentIntent(taskStackBuilder)

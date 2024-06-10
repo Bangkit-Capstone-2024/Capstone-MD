@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/size_16"
+    android:paddingBottom="@dimen/size_8"
     android:paddingTop="@dimen/size_8">
 
     <androidx.appcompat.widget.LinearLayoutCompat

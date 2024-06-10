@@ -22,4 +22,7 @@ interface AuthDataSource {
         @Field("email") email: String,
         @Field("password") password: String,
     ): Response<AuthResponse.Result>
+
+    @POST("users/logout")
+    suspend fun logout(): Response<AuthResponse.Result>
 }

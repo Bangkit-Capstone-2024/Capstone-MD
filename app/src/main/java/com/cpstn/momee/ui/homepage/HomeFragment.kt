@@ -2,15 +2,21 @@ package com.cpstn.momee.ui.homepage
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.cpstn.momee.R
+import com.cpstn.momee.data.domain.ProductCategoryDomain
 import com.cpstn.momee.databinding.FragmentHomeBinding
 import com.cpstn.momee.databinding.FragmentHomeProductBinding
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
-import com.cpstn.momee.ui.bookmark.adapter.ProductCategoryDummy
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+
+    private val viewModel: HomeViewModel by viewModels()
 
     private val NEAREST_PRODUCT_ID = R.id.frame_nearest_product
     private val BEST_PRODUCT_ID = R.id.frame_best_rating_product
@@ -20,9 +26,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         setupNearestProductFragment()
         setupBestRatingProductFragment()
-        setupCategoryProductFragment()
+        setupObserver()
     }
 
+    private fun setupObserver() {
+        viewModel.getCategory()
+        viewModel.categoryResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataResult.Success-> {
+                    setupCategoryProductFragment(it.data ?: ProductCategoryDomain())
+                }
+
+                is DataResult.Error -> { }
+                is DataResult.Loading -> { }
+            }
+        }
+    }
 
     private fun setupNearestProductFragment() {
         var fragment = getFragment<NearestProductFragment>(NEAREST_PRODUCT_ID)
@@ -46,11 +65,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    private fun setupCategoryProductFragment() {
+    private fun setupCategoryProductFragment(data: ProductCategoryDomain) {
         var fragment = getFragment<CategoryProductFragment>(CATEGORY_PRODUCT)
         if (fragment == null) {
             val bundle = bundleOf(
-                EXTRAS.DATA to ProductCategoryDummy().getDummyList()
+                EXTRAS.DATA to ArrayList(data.data)
             )
             fragment = newInstanceFragment(bundle, CategoryProductFragment()) as CategoryProductFragment
             addChildFragment(CATEGORY_PRODUCT, fragment)

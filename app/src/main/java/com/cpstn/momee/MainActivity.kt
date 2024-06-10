@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.cpstn.momee.data.domain.UserFirebase
 import com.cpstn.momee.databinding.ActivityMainBinding
 import com.cpstn.momee.utils.AccessToken
+import com.cpstn.momee.utils.Firebase
 import com.cpstn.momee.utils.StringHelper.encode
 import com.cpstn.momee.utils.base.BaseActivity
 import com.google.firebase.database.DatabaseReference
@@ -26,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun setupView() {
         viewModel.getUserSession()
         mObjRef = FirebaseDatabase
-            .getInstance("https://momee-e9f6b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getInstance(Firebase.DB_FIREBASE_URL)
             .getReference()
 
         setupBottomNav()
@@ -47,6 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setupObserver() {
         viewModel.userSessionResult.observe(this) {
             if (it.userToken.isNotEmpty()) {
+                viewModel.currentUserInfo = it
                 getFcmToken(it.userEmail)
             }
         }

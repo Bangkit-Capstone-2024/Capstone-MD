@@ -1,8 +1,8 @@
 package com.cpstn.momee.ui.homepage
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cpstn.momee.data.domain.ProductCategoryDomain
 import com.cpstn.momee.databinding.FragmentHomeProductBinding
-import com.cpstn.momee.ui.bookmark.adapter.ProductCategoryDummy
 import com.cpstn.momee.ui.homepage.adapter.ProductCategoryAdapter
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.MarginItemDecoration
@@ -12,7 +12,7 @@ import com.cpstn.momee.utils.visible
 
 class CategoryProductFragment: BaseFragment<FragmentHomeProductBinding>(FragmentHomeProductBinding::inflate) {
 
-    private var list: ArrayList<ProductCategoryDummy> = arrayListOf()
+    private var list: ArrayList<ProductCategoryDomain.Data> = arrayListOf()
 
     override fun setBundleData() {
         super.setBundleData()
@@ -30,7 +30,7 @@ class CategoryProductFragment: BaseFragment<FragmentHomeProductBinding>(Fragment
         setupData(list)
     }
 
-    private fun setupData(list: ArrayList<ProductCategoryDummy>) {
+    private fun setupData(list: ArrayList<ProductCategoryDomain.Data>) {
         binding.apply {
             rvProducts.adapter = ProductCategoryAdapter(list)
             rvProducts.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -73,7 +73,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofitGsonConverter)
     implementation(libs.gson)
-    implementation(libs.chucker)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chuckerRelease)
 
     // android architecture component
     implementation(libs.viewModel)
