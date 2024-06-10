@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052223905789",
+    "project_id": "momee-e9f6b",
+    "storage_bucket": "momee-e9f6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052223905789:android:b99fb1aea9c1194f984394",
+        "android_client_info": {
+          "package_name": "com.cpstn.momee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWzeBsT0XJk-GgajcVvzqYxQIsucVhD3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
