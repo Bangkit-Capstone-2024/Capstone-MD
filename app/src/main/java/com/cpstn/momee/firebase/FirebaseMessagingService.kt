@@ -41,9 +41,17 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val jsonObject = JSONObject(data as Map<*, *>)
         val title = jsonObject.getString("title")
         val body = jsonObject.getString("body")
-        val email = jsonObject.getString("receiver")
         val action = jsonObject.getString("action")
-        sendNotification(title, body, email, action)
+        if (action == "chat") {
+            val email = jsonObject.getString("receiver")
+            sendNotification(title, body, email, action)
+        } else {
+            sendDefaultNotification(title, body)
+        }
+    }
+
+    private fun sendDefaultNotification(title: String?, body: String) {
+        sendNotification(title, body, "", "home")
     }
 
     private fun sendNotification(
