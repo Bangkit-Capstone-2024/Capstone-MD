@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888204475755",
+    "project_id": "momee-ec3ba",
+    "storage_bucket": "momee-ec3ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888204475755:android:863c0ffdd138fa21b0202e",
+        "android_client_info": {
+          "package_name": "com.cpstn.momee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU01kmD8j7at86ZoPfP8AfMbuzZXpkuwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

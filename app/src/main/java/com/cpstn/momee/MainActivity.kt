@@ -1,15 +1,22 @@
 package com.cpstn.momee
 
-import com.cpstn.momee.databinding.ActivityMainBinding
-import com.cpstn.momee.utils.BaseActivity
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : AppCompatActivity() {
 
-    override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-
-    override fun setupView() {
-        with(binding) {
-            tvHello.text = getString(R.string.app_name)
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
     }
 }

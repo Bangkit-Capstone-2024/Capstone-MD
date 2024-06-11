@@ -13,7 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-/.idea/kotlinc.xml
-/.idea/codeStyles
-/.idea/codeStyles/Project.xml
-/.idea/
