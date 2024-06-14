@@ -2,6 +2,7 @@ package com.cpstn.momee.ui.homepage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.cpstn.momee.data.domain.ProductCategoryDomain
@@ -31,6 +32,9 @@ class ProductCategoryAdapter(private val items: ArrayList<ProductCategoryDomain.
             ivProduct.load(item.image.orEmpty())
             tvName.text = item.nameCategories.orEmpty()
             tvLabel.text = "${item.amount} barang"
+            root.setOnClickListener {
+                Toast.makeText(root.context, "Eitss, nanti dulu masih belum bisa", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

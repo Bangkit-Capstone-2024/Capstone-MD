@@ -32,7 +32,7 @@ object EXTRAS {
     const val DATA = "data"
 }
 
-object NOTIFICATION_ACTION {
+object Notif {
     const val CHAT = "chat"
 }
 

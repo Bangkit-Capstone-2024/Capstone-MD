@@ -15,12 +15,13 @@ object Notification {
 
     private const val POST_URL = Firebase.FCM_URL
 
-    fun sendChatNotification(fcmToken: String, title: String, receiver: String, body: String, dispatcher: CoroutineContext) {
+    fun sendChatNotification(fcmToken: String, title: String, receiver: String, action: String, body: String, dispatcher: CoroutineContext) {
         CoroutineScope(dispatcher).launch {
             val notificationObj = JSONObject().apply {
                 put("title", title)
                 put("body", body)
                 put("receiver", receiver)
+                put("action", action)
             }
             val messageObject = JSONObject().apply {
                 put("token", fcmToken)

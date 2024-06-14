@@ -45,7 +45,7 @@ class ChatListAdapter(private val items: ArrayList<UserListDomain.Query>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UserListDomain.Query) = with(binding) {
-            ivUser.load(R.drawable.ic_profile_active)
+            ivUser.load(if (item.avatar.isNotEmpty()) item.avatar else R.drawable.ic_profile_active)
             tvUserName.text = item.username
             root.setOnClickListener {
                 listener?.onItemClick(adapterPosition)

@@ -82,4 +82,13 @@ abstract class BaseFragment<VB : ViewBinding>(private val bindingInflater: Infla
             if (shouldRemoveKey) arguments?.remove(key)
         }
     }
+
+    private fun Fragment.replaceChildFragment(containerViewId: Int, fragment: Fragment) {
+        childFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T : Fragment> Fragment.getFragment(fragmentId: Int): T? {
+        return childFragmentManager.findFragmentById(fragmentId) as? T
+    }
 }

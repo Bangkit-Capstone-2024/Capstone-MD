@@ -21,6 +21,7 @@ class UserListMapper : Mapper<UserListResponse, UserListDomain> {
                 UserListDomain.Query(
                     email = item.email.orEmpty(),
                     id = item.id,
+                    avatar = item.avatar.orEmpty(),
                     isVerified = item.isVerified,
                     username = item.username
                 )

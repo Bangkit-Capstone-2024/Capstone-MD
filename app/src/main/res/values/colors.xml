@@ -8,4 +8,6 @@
     <color name="color_transparent_black">#80000000</color>
     <color name="color_transparent">#000000</color>
     <color name="color_grey_100">#E3E3E7</color>
+    <color name="google_btn_font_day">#1F1F1F</color>
+    <color name="google_btn_stroke_day">#747775</color>
 </resources>

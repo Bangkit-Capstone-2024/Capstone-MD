@@ -1,21 +1,24 @@
 package com.cpstn.momee.ui.homepage
 
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.cpstn.momee.MainViewModel
 import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.ProductCategoryDomain
 import com.cpstn.momee.databinding.FragmentHomeBinding
-import com.cpstn.momee.databinding.FragmentHomeProductBinding
 import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.base.BaseFragment
+import com.cpstn.momee.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: HomeViewModel by viewModels()
 
     private val NEAREST_PRODUCT_ID = R.id.frame_nearest_product
@@ -24,22 +27,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun setupView() {
 
+        binding.tvGreeting.text = getString(R.string.app_home_greeting, mainViewModel.currentUserInfo?.userName?.split(" ")?.first())
+        binding.etSearch.setHint("Cari Barang")
         setupNearestProductFragment()
         setupBestRatingProductFragment()
         setupObserver()
+
     }
 
     private fun setupObserver() {
         viewModel.getCategory()
         viewModel.categoryResult.observe(viewLifecycleOwner) {
             when (it) {
-                is DataResult.Success-> {
+                is DataResult.Success -> {
                     setupCategoryProductFragment(it.data ?: ProductCategoryDomain())
                 }
 
-                is DataResult.Error -> { }
-                is DataResult.Loading -> { }
+                is DataResult.Error -> {}
+                is DataResult.Loading -> {}
             }
+        }
+
+        binding.shimmerLayout.visible(true)
+        binding.shimmerLayout.startShimmer()
+        mainViewModel.getCurrentLocation.observe(viewLifecycleOwner) {
+            binding.shimmerLayout.stopShimmer()
+            binding.shimmerLayout.visible(false)
+            binding.tvLocationLabel.visible(it.city.isNotEmpty() && it.province.isNotEmpty())
+            binding.tvLocationDesc.visible(it.city.isNotEmpty() && it.province.isNotEmpty())
+            binding.tvLocationDesc.text =
+                getString(
+                    R.string.app_location_label,
+                    it.city,
+                    it.province
+                )
         }
     }
 
@@ -49,7 +70,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             val bundle = bundleOf(
                 EXTRAS.DATA to DummyDataClass().getDummyList()
             )
-            fragment = newInstanceFragment(bundle, NearestProductFragment()) as NearestProductFragment
+            fragment =
+                newInstanceFragment(bundle, NearestProductFragment()) as NearestProductFragment
             addChildFragment(NEAREST_PRODUCT_ID, fragment)
         }
     }
@@ -60,7 +82,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             val bundle = bundleOf(
                 EXTRAS.DATA to DummyDataClass().getDummyList()
             )
-            fragment = newInstanceFragment(bundle, BestRatingProductFragment()) as BestRatingProductFragment
+            fragment = newInstanceFragment(
+                bundle, BestRatingProductFragment()
+            ) as BestRatingProductFragment
             addChildFragment(BEST_PRODUCT_ID, fragment)
         }
     }
@@ -71,30 +95,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             val bundle = bundleOf(
                 EXTRAS.DATA to ArrayList(data.data)
             )
-            fragment = newInstanceFragment(bundle, CategoryProductFragment()) as CategoryProductFragment
+            fragment =
+                newInstanceFragment(bundle, CategoryProductFragment()) as CategoryProductFragment
             addChildFragment(CATEGORY_PRODUCT, fragment)
         }
-    }
-
-    private fun addFragments(
-        ids: ArrayList<Int>,
-        fragments: ArrayList<BaseFragment<FragmentHomeProductBinding>>
-    ) {
-        ids.forEachIndexed { index, id ->
-            val fragment = childFragmentManager.findFragmentById(id)
-            if (fragment == null) {
-                this.replaceChildFragment(id, fragments[index])
-            }
-        }
-    }
-
-    private fun Fragment.replaceChildFragment(containerViewId: Int, fragment: Fragment) {
-        childFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun <T : Fragment> Fragment.getFragment(fragmentId: Int): T? {
-        return childFragmentManager.findFragmentById(fragmentId) as? T
     }
 
 }

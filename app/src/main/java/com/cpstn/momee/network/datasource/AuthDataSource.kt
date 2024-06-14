@@ -23,6 +23,12 @@ interface AuthDataSource {
         @Field("password") password: String,
     ): Response<AuthResponse.Result>
 
+    @FormUrlEncoded
+    @POST("users/login-google")
+    suspend fun loginGoogle(
+        @Field("token") token: String,
+    ): Response<AuthResponse.Result>
+
     @POST("users/logout")
     suspend fun logout(): Response<AuthResponse.Result>
 }

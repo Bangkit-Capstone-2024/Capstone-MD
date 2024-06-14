@@ -14,6 +14,7 @@ data class UserListResponse(
     data class Query(
         @SerializedName("email") val email: String? = Constant.EMPTY_STRING,
         @SerializedName("id") val id: Int? = Constant.ZERO,
+        @SerializedName("avatar") val avatar: String? = Constant.EMPTY_STRING,
         @SerializedName("isVerified") val isVerified: Boolean? = false,
         @SerializedName("username") val username: String = Constant.EMPTY_STRING
     )

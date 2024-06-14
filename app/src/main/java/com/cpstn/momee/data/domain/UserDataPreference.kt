@@ -15,6 +15,11 @@ data class UserFirebase(
     var fcmToken: String = Constant.EMPTY_STRING
 )
 
+data class UserLocation(
+    var city: String = Constant.EMPTY_STRING,
+    var province: String = Constant.EMPTY_STRING
+)
+
 data class UserListDomain(
     val currentPage: Int? = Constant.ZERO,
     val message: String? = Constant.EMPTY_STRING,
@@ -28,6 +33,7 @@ data class UserListDomain(
         val email: String? = Constant.EMPTY_STRING,
         val id: Int? = Constant.ZERO,
         val isVerified: Boolean? = false,
+        var avatar: String = Constant.EMPTY_STRING,
         val username: String = Constant.EMPTY_STRING
     ) : Parcelable
 }

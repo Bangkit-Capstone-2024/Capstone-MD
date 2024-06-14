@@ -18,12 +18,23 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
     private var _loginDataResult: MutableLiveData<DataResult<AuthDomain.Result>> = MutableLiveData()
     val loginDataResult: LiveData<DataResult<AuthDomain.Result>> = _loginDataResult
 
+    private var _loginGoogleResult: MutableLiveData<DataResult<AuthDomain.Result>> = MutableLiveData()
+    val loginGoogleResult: LiveData<DataResult<AuthDomain.Result>> = _loginGoogleResult
+
     private var _userSessionResult: MutableLiveData<UserDataPreference> = MutableLiveData()
     val userSessionResult: LiveData<UserDataPreference> = _userSessionResult
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
             authRepository.login(email, password).collect {
+                _loginDataResult.value = it
+            }
+        }
+    }
+
+    fun loginGoogle(token: String) {
+        viewModelScope.launch {
+            authRepository.loginGoogle(token).collect {
                 _loginDataResult.value = it
             }
         }

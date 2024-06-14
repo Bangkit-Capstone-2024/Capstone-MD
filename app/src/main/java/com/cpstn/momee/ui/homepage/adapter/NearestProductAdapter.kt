@@ -3,6 +3,7 @@ package com.cpstn.momee.ui.homepage.adapter
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -42,6 +43,10 @@ class NearestProductAdapter(private val items: ArrayList<DummyDataClass>) :
             val price = StringHelper.convertToCurrencyFormat(item.price.toString(), true)
             builder.bold { append(price) }.append(" / bulan")
             tvPrice.text = builder
+
+            root.setOnClickListener {
+                Toast.makeText(root.context, "Eitss, nanti dulu masih belum bisa", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import com.cpstn.momee.ui.chat.adapter.Message
 import com.cpstn.momee.utils.Constant
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.Firebase
+import com.cpstn.momee.utils.Notif
 import com.cpstn.momee.utils.Notification
 import com.cpstn.momee.utils.StringHelper.encode
 import com.cpstn.momee.utils.base.BaseActivity
@@ -103,6 +104,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
                 receiverUserData.username,
                 receiverUserData.email.orEmpty(),
                 messageObj.message,
+                Notif.CHAT,
                 Dispatchers.IO
             )
             binding.etMessage.setText("")

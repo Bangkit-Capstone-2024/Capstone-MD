@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/size_10"
     app:cardUseCompatPadding="true">
 
@@ -15,7 +16,8 @@
             android:id="@+id/iv_product"
             android:layout_width="160dp"
             android:layout_height="180dp"
-            android:scaleType="centerCrop"
+            android:padding="@dimen/size_18"
+            android:scaleType="centerInside"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <androidx.appcompat.widget.LinearLayoutCompat

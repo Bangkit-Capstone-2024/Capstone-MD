@@ -15,7 +15,7 @@ import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.UserListDomain
 import com.cpstn.momee.ui.chat.ChatActivity
 import com.cpstn.momee.utils.EXTRAS
-import com.cpstn.momee.utils.NOTIFICATION_ACTION
+import com.cpstn.momee.utils.Notif
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONObject
@@ -90,7 +90,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     private fun handlePendingIntent(action: String?, title: String?, receiver: String?): Intent {
         return when (action) {
-            NOTIFICATION_ACTION.CHAT -> {
+            Notif.CHAT -> {
                 val receiverData = UserListDomain.Query(
                     username = title.orEmpty(),
                     email = receiver

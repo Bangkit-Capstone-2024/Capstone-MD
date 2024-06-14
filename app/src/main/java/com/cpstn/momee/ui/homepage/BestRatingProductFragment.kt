@@ -2,9 +2,11 @@ package com.cpstn.momee.ui.homepage
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cpstn.momee.R
 import com.cpstn.momee.databinding.FragmentHomeProductBinding
 import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
 import com.cpstn.momee.ui.homepage.adapter.NearestProductAdapter
+import com.cpstn.momee.utils.Constant
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.MarginItemDecoration
 import com.cpstn.momee.utils.base.BaseFragment
@@ -25,8 +27,8 @@ class BestRatingProductFragment : BaseFragment<FragmentHomeProductBinding>(Fragm
     }
 
     override fun setupView() {
-        binding?.apply {
-            tvTitle.text = "Rating jempol di Jakarta"
+        binding.apply {
+            tvTitle.text = getString(R.string.app_best_rating_in)
             tvDescription.visible(false)
         }
         setupData(list)

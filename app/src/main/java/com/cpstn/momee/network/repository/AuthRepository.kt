@@ -19,9 +19,10 @@ import org.json.JSONObject
 interface AuthRepository {
     fun register(registerPayload: RegisterPayload): Flow<DataResult<AuthDomain.Result>>
     fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>>
+    fun loginGoogle(token: String): Flow<DataResult<AuthDomain.Result>>
     fun saveSession(userToken: String, userName: String, userEmail: String)
     fun getUserSession(): Flow<UserDataPreference>
-    fun logout() : Flow<DataResult<AuthDomain.Result>>
+    fun logout(): Flow<DataResult<AuthDomain.Result>>
 }
 
 class AuthRepositoryImpl(
@@ -67,6 +68,23 @@ class AuthRepositoryImpl(
                 emit(DataResult.Error(e.message.orEmpty()))
             }
         }
+
+    override fun loginGoogle(token: String) = flow {
+        emit(DataResult.Loading)
+        val response = authDataSource.loginGoogle(token)
+        try {
+            if (response.isSuccessful) {
+                val mapper = AuthMapper().map(response.body() ?: AuthResponse.Result())
+                emit(DataResult.Success(mapper))
+            } else {
+                val errorBody = response.errorBody()?.string().orEmpty()
+                val message = JSONObject(errorBody).getString("message")
+                emit(DataResult.Error(message))
+            }
+        } catch (e: Exception) {
+            emit(DataResult.Error(e.message.orEmpty()))
+        }
+    }
 
     override fun saveSession(userToken: String, userName: String, userEmail: String) {
         CoroutineScope(Dispatchers.IO).launch {
