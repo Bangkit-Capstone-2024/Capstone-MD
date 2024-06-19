@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Layout.Vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountFragment">
+    tools:context=".ui.account.ProfileDataFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,15 +12,15 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_personal_data" />
+        app:title="@string/app_account" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="59dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             style="@style/Layout.Vertical"
@@ -69,78 +69,89 @@
                 android:background="@color/color_grey_100"
                 app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/container_personal_data"
-                style="@style/Layout.Horizontal"
-                android:layout_marginTop="@dimen/size_16"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/size_16"
-                android:paddingVertical="@dimen/size_8">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Masukkan Username">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/size_24"
-                    android:layout_height="@dimen/size_24"
-                    app:srcCompat="@drawable/ic_profile_active"
-                    app:tint="@android:color/black" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_personal_data"
-                    style="@style/Font.Paragraph2"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_8"
-                    android:drawableEnd="@drawable/ic_arrow_right"
-                    android:text="@string/app_personal_data" />
+                    android:inputType="textEmailAddress" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/container_tenant"
-                style="@style/Layout.Horizontal"
-                android:layout_marginTop="@dimen/size_16"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/size_16"
-                android:paddingVertical="@dimen/size_8">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Masukan Kata Sandi Lama"
+                app:endIconMode="password_toggle">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/size_24"
-                    android:layout_height="@dimen/size_24"
-                    app:srcCompat="@drawable/ic_tenant" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_tenant"
-                    style="@style/Font.Paragraph2"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password_new"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_8"
-                    android:drawableEnd="@drawable/ic_arrow_right"
-                    android:text="@string/app_tenant" />
+                    android:inputType="textPassword" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/container_faq"
-                style="@style/Layout.Horizontal"
-                android:layout_marginTop="@dimen/size_16"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/size_16"
-                android:paddingVertical="@dimen/size_8">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Masukan Kata Sandi Baru"
+                app:endIconMode="password_toggle">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/size_24"
-                    android:layout_height="@dimen/size_24"
-                    app:srcCompat="@drawable/ic_faq" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_faq"
-                    style="@style/Font.Paragraph2"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_8"
-                    android:drawableEnd="@drawable/ic_arrow_right"
-                    android:text="@string/app_faq" />
+                    android:inputType="textPassword" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Masukkan Alamat">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16"
+                android:text="@string/app_login" />
+
+            <Button
+                android:id="@+id/btn_sign_in_with_google"
+                style="@style/Widget.App.Button.GoogleButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="16dp"
+                android:padding="1dp"
+                android:text="Masuk dengan Google"
+                app:icon="@drawable/ic_google_signin"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="40dp"
+                app:iconTint="@null" />
 
             <View
                 android:id="@+id/view_logout"

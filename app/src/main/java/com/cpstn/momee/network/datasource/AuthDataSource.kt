@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface AuthDataSource {
 
     @FormUrlEncoded
-    @POST("register")
+    @POST("users/register")
     suspend fun register(
         @Field("username") name: String,
         @Field("email") email: String,
