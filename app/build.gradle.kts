@@ -107,6 +107,8 @@ dependencies {
     // shimmer
     implementation(libs.shimmer)
 
+    implementation(libs.viewpagerindicator)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

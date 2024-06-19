@@ -29,6 +29,9 @@ object Firebase {
 }
 
 object EXTRAS {
+    const val IMAGE = "image"
+    const val TITLE = "title"
+    const val DESCRIPTION = "description"
     const val DATA = "data"
 }
 
