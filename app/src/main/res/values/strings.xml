@@ -19,6 +19,7 @@
     <string name="app_location_label">%1$s, %2$s</string>
     <string name="app_best_rating_in">Terbaik buat Bunda</string>
     <string name="app_login">Masuk</string>
+    <string name="app_simpan">Simpan</string>
     <string name="app_new_register">Pendaftaran baru</string>
     <string name="app_register">Daftar</string>
     <string name="app_home_greeting">Hi, %1$s \nMau cari barang apa ?</string>

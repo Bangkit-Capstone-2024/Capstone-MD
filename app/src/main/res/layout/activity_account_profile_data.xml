@@ -19,8 +19,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="59dp">
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             style="@style/Layout.Vertical"
@@ -28,7 +28,7 @@
             android:paddingHorizontal="@dimen/size_16"
             android:paddingBottom="@dimen/size_16">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/iv_user"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -36,8 +36,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/circle"
-                app:srcCompat="@drawable/ic_profile_active" />
+                android:src="@drawable/ic_profile_active"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circle_shape" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_user"
@@ -48,18 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_user"
-                tools:text="@tools:sample/full_names" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_email"
-                style="@style/Font.Paragraph2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_user"
-                tools:text="test@mail.com" />
+                tools:text="Choose Picture" />
 
             <View
                 android:id="@+id/view"
@@ -131,54 +121,28 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Masukkan No HP">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nomor_hp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_16"
-                android:text="@string/app_login" />
-
-            <Button
-                android:id="@+id/btn_sign_in_with_google"
-                style="@style/Widget.App.Button.GoogleButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="16dp"
-                android:padding="1dp"
-                android:text="Masuk dengan Google"
-                app:icon="@drawable/ic_google_signin"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconSize="40dp"
-                app:iconTint="@null" />
-
-            <View
-                android:id="@+id/view_logout"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="@dimen/size_24"
-                android:background="@color/color_grey_100" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/container_logout"
-                style="@style/Layout.Horizontal"
-                android:layout_marginTop="@dimen/size_16"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/size_16"
-                android:paddingVertical="@dimen/size_8">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_logout"
-                    style="@style/Font.Paragraph2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_logout"
-                    android:drawablePadding="@dimen/size_8"
-                    android:drawableTint="@android:color/black"
-                    android:text="@string/app_logout" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:text="@string/app_simpan" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
