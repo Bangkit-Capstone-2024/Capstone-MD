@@ -6,11 +6,15 @@ import androidx.fragment.app.viewModels
 import com.cpstn.momee.MainViewModel
 import com.cpstn.momee.R
 import com.cpstn.momee.data.domain.ProductCategoryDomain
+import com.cpstn.momee.data.domain.ProductDomain
 import com.cpstn.momee.databinding.FragmentHomeBinding
 import com.cpstn.momee.network.DataResult
-import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
+import com.cpstn.momee.ui.bottomsheet.UploadBottomSheet
+import com.cpstn.momee.ui.product.SearchProductActivity
+import com.cpstn.momee.ui.upload.UploadActivity
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.base.BaseFragment
+import com.cpstn.momee.utils.startActivityTo
 import com.cpstn.momee.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,26 +25,54 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: HomeViewModel by viewModels()
 
-    private val NEAREST_PRODUCT_ID = R.id.frame_nearest_product
     private val BEST_PRODUCT_ID = R.id.frame_best_rating_product
     private val CATEGORY_PRODUCT = R.id.frame_category_product
 
     override fun setupView() {
 
         binding.tvGreeting.text = getString(R.string.app_home_greeting, mainViewModel.currentUserInfo?.userName?.split(" ")?.first())
-        binding.etSearch.setHint("Cari Barang")
-        setupNearestProductFragment()
-        setupBestRatingProductFragment()
+
         setupObserver()
+
+        binding.containerSearch.setOnClickListener {
+            startActivityTo(SearchProductActivity::class.java)
+        }
+
+        binding.containerScan.setOnClickListener {
+            val bottomSheet = UploadBottomSheet()
+            bottomSheet.setListener(object : UploadBottomSheet.Listener {
+                override fun onGalleryClick() {
+                    startActivityTo(UploadActivity::class.java)
+                    bottomSheet.dismiss()
+                }
+
+                override fun onCameraClick() {
+
+                }
+
+            })
+            bottomSheet.show(childFragmentManager, bottomSheet.tag)
+        }
 
     }
 
     private fun setupObserver() {
         viewModel.getCategory()
+        viewModel.getAllProduct()
         viewModel.categoryResult.observe(viewLifecycleOwner) {
             when (it) {
                 is DataResult.Success -> {
                     setupCategoryProductFragment(it.data ?: ProductCategoryDomain())
+                }
+
+                is DataResult.Error -> {}
+                is DataResult.Loading -> {}
+            }
+        }
+        viewModel.getAllProductResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataResult.Success -> {
+                    setupBestRatingProductFragment(it.data ?: ProductDomain())
                 }
 
                 is DataResult.Error -> {}
@@ -64,23 +96,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    private fun setupNearestProductFragment() {
-        var fragment = getFragment<NearestProductFragment>(NEAREST_PRODUCT_ID)
-        if (fragment == null) {
-            val bundle = bundleOf(
-                EXTRAS.DATA to DummyDataClass().getDummyList()
-            )
-            fragment =
-                newInstanceFragment(bundle, NearestProductFragment()) as NearestProductFragment
-            addChildFragment(NEAREST_PRODUCT_ID, fragment)
-        }
-    }
-
-    private fun setupBestRatingProductFragment() {
+    private fun setupBestRatingProductFragment(data: ProductDomain) {
         var fragment = getFragment<BestRatingProductFragment>(BEST_PRODUCT_ID)
         if (fragment == null) {
             val bundle = bundleOf(
-                EXTRAS.DATA to DummyDataClass().getDummyList()
+                EXTRAS.DATA to ArrayList(data.data)
             )
             fragment = newInstanceFragment(
                 bundle, BestRatingProductFragment()

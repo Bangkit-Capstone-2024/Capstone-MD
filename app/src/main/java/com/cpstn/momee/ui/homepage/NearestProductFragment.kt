@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cpstn.momee.databinding.FragmentHomeProductBinding
 import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
-import com.cpstn.momee.ui.homepage.adapter.NearestProductAdapter
 import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.MarginItemDecoration
 import com.cpstn.momee.utils.base.BaseFragment
@@ -33,7 +32,7 @@ class NearestProductFragment: BaseFragment<FragmentHomeProductBinding>(FragmentH
 
     private fun setupData() {
         binding.apply {
-            rvProducts.adapter = NearestProductAdapter(list)
+//            rvProducts.adapter = NearestProductAdapter(list)
             rvProducts.layoutManager = object : LinearLayoutManager(context, HORIZONTAL, false) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
                     lp.width = 85 percentOf width

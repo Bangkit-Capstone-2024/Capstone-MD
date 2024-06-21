@@ -2,13 +2,15 @@ package com.cpstn.momee.ui.homepage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.cpstn.momee.data.domain.ProductCategoryDomain
 import com.cpstn.momee.databinding.ItemProductCategoryBinding
 
-class ProductCategoryAdapter(private val items: ArrayList<ProductCategoryDomain.Data>) :
+class ProductCategoryAdapter(
+    private val items: ArrayList<ProductCategoryDomain.Data>,
+    private val onItemClick: (ProductCategoryDomain.Data) -> Unit
+) :
     RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +35,7 @@ class ProductCategoryAdapter(private val items: ArrayList<ProductCategoryDomain.
             tvName.text = item.nameCategories.orEmpty()
             tvLabel.text = "${item.amount} barang"
             root.setOnClickListener {
-                Toast.makeText(root.context, "Eitss, nanti dulu masih belum bisa", Toast.LENGTH_SHORT).show()
+                onItemClick.invoke(item)
             }
         }
     }

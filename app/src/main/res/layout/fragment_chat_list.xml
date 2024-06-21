@@ -12,6 +12,7 @@
         android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Chat"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         tools:ignore="PrivateResource" />
 
     <ProgressBar

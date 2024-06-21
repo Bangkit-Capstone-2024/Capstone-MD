@@ -1,5 +1,7 @@
 package com.cpstn.momee.utils
 
+import android.Manifest
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 
@@ -8,6 +10,7 @@ object API {
     const val MESSAGE = "message"
 
     const val IMAGE = "image"
+    const val PICTURES = "pictures"
 }
 
 object Firebase {
@@ -39,6 +42,11 @@ object Notif {
     const val CHAT = "chat"
 }
 
+
+object Permissions {
+    const val CAMERA = Manifest.permission.CAMERA
+}
+
 object Constant {
     const val EMPTY_STRING = ""
     const val SPACE = " "
@@ -50,4 +58,5 @@ object Preference {
     val USER_TOKEN = stringPreferencesKey("user_token")
     val USER_NAME = stringPreferencesKey("user_name")
     val USER_EMAIL = stringPreferencesKey("user_email")
+    val HAS_SHOW_ONBOARDING = booleanPreferencesKey("has_show_onboarding")
 }

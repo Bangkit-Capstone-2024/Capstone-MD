@@ -82,10 +82,6 @@ class BookmarkAdapter(private val items: ArrayList<DummyDataClass>) :
 
         fun bind(item: DummyDataClass) = with(binding) {
             ivProduct.load(item.image)
-            val ratingBuilder = SpannableStringBuilder()
-                .bold { append(item.rating.toString()) }
-                .append(" (${item.review})")
-            tvRating.text = ratingBuilder
             tvName.text = item.name
             tvLocation.text = item.location
             val builder = SpannableStringBuilder()

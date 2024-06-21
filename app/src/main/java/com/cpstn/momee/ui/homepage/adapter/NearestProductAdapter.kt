@@ -3,15 +3,18 @@ package com.cpstn.momee.ui.homepage.adapter
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.cpstn.momee.R
+import com.cpstn.momee.data.domain.ProductDomain
 import com.cpstn.momee.databinding.ItemProductBinding
-import com.cpstn.momee.ui.bookmark.adapter.DummyDataClass
 import com.cpstn.momee.utils.StringHelper
 
-class NearestProductAdapter(private val items: ArrayList<DummyDataClass>) :
+class NearestProductAdapter(
+    private val items: ArrayList<ProductDomain.Data>,
+    private val onItemClick: (ProductDomain.Data) -> Unit
+) :
     RecyclerView.Adapter<NearestProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,21 +34,19 @@ class NearestProductAdapter(private val items: ArrayList<DummyDataClass>) :
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DummyDataClass) = with(binding) {
-            ivProduct.load(item.image)
-            val ratingBuilder = SpannableStringBuilder()
-                .bold { append(item.rating.toString()) }
-                .append(" (${item.review})")
-            tvRating.text = ratingBuilder
-            tvName.text = item.name
-            tvLocation.text = item.location
+        fun bind(item: ProductDomain.Data) = with(binding) {
+            ivProduct.load(item.pictures) {
+                error(R.drawable.ic_placeholder)
+            }
+            tvName.text = item.nameProducts
+            tvLocation.text = item.addressTenants
             val builder = SpannableStringBuilder()
             val price = StringHelper.convertToCurrencyFormat(item.price.toString(), true)
-            builder.bold { append(price) }.append(" / bulan")
+            builder.bold { append(price) }.append(" / hari")
             tvPrice.text = builder
 
             root.setOnClickListener {
-                Toast.makeText(root.context, "Eitss, nanti dulu masih belum bisa", Toast.LENGTH_SHORT).show()
+                onItemClick.invoke(item)
             }
         }
     }

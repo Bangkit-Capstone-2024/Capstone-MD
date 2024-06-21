@@ -17,6 +17,16 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "momee1234"
+            storeFile = file("/Users/syahrulfahmi/StudioProjects/Capstone-MD/app/src/momee")
+            storePassword = "momee1234"
+        }
+    }
+
+
     defaultConfig {
         applicationId = "com.cpstn.momee"
         minSdk = 24
@@ -32,6 +42,8 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://api.dev.momee.id/api/v1/\"")
         }
         release {
+            signingConfig = signingConfigs.getByName("release")
+            buildConfigField("String", "BASE_URL", "\"https://api.momee.id/api/v1/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -42,6 +54,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -106,6 +119,10 @@ dependencies {
 
     // shimmer
     implementation(libs.shimmer)
+
+    // tensorflow
+    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.tensorflow.lite.task.vision)
 
     implementation(libs.viewpagerindicator)
 

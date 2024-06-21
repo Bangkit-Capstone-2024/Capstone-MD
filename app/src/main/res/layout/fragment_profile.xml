@@ -12,7 +12,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_account" />
+        app:title="@string/app_account"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

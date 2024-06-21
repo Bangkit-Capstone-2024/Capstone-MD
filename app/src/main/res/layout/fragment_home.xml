@@ -32,7 +32,7 @@
                     android:background="@android:color/white"
                     android:padding="@dimen/size_4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tl_search"
+                    app:layout_constraintTop_toBottomOf="@id/container_search"
                     app:shapeAppearanceOverlay="@style/circle"
                     app:srcCompat="@drawable/ic_profile_active"
                     app:strokeColor="@color/color_primary"
@@ -50,26 +50,27 @@
                     app:layout_constraintStart_toEndOf="@id/iv_user"
                     app:layout_constraintTop_toTopOf="@id/iv_user" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tl_search"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/container_search"
                     style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@android:color/white"
-                    app:boxStrokeWidth="0dp"
+                    android:background="@drawable/bg_border_round_grey"
+                    android:foreground="?attr/selectableItemBackground"
                     app:layout_constraintTop_toBottomOf="@id/iv_user"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Momee.TextInputLayout.Rounded">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_search"
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_search"
                         android:drawablePadding="@dimen/size_8"
-                        android:inputType="text" />
+                        android:paddingHorizontal="@dimen/size_12"
+                        android:paddingVertical="@dimen/size_12"
+                        android:text="Mau cari apa ?" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,11 +119,30 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/frame_nearest_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_16" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/container_scan"
+                style="@style/Layout.Vertical"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/size_16"
+                android:layout_marginTop="@dimen/size_16"
+                android:background="@drawable/bg_primary_light_round_10dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/size_16"
+                android:paddingVertical="@dimen/size_8">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/Font.Paragraph2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_scan"
+                    android:drawablePadding="@dimen/size_8"
+                    android:gravity="center"
+                    android:text="Pindai dan indentifikasi produk momee"
+                    android:textColor="@color/color_primary" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/frame_best_rating_product"

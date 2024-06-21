@@ -17,5 +17,6 @@ class ProductsSearchByImageResponse {
 }
 
 enum class MediaType(val value: String) {
+    TEXT("text/plain"),
     IMAGE("image/jpeg")
 }

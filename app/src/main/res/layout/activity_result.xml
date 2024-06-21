@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Result Page" />
+        app:title="Result Page"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_result"

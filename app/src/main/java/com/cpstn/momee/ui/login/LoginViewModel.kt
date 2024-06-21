@@ -41,7 +41,7 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
     }
 
     fun saveUserSession(userToken: String, userName: String, userEmail: String) =
-        authRepository.saveSession(userToken, userName, userEmail)
+        authRepository.saveSession(userToken, userName, userEmail, true)
 
     fun getUserSession() {
         viewModelScope.launch {

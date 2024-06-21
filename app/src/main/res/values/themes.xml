@@ -24,4 +24,19 @@
         <item name="colorContainer">@android:color/white</item>
         <item name="colorOnContainer">@color/google_btn_font_day</item>
     </style>
+
+    <style name="Theme.MaterialComponents.Light.NoActionBar" parent="Theme.MoMee">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
+    <style name="Momee.Theme.CollapsingToolbar" parent="">
+        <item name="contentScrim">@android:color/white</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/font_18</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+    </style>
 </resources>

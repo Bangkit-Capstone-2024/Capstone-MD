@@ -1,17 +1,16 @@
 package com.cpstn.momee.ui.result
 
 import android.net.Uri
-import com.cpstn.momee.data.domain.ProductsSearchByImageDomain
 import com.cpstn.momee.databinding.ActivityResultBinding
+import com.cpstn.momee.utils.Constant
 import com.cpstn.momee.utils.base.BaseActivity
-import com.cpstn.momee.utils.parcelableArrayList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ResultActivity : BaseActivity<ActivityResultBinding>() {
 
     private var imageUri: Uri? = null
-    private var result: ArrayList<ProductsSearchByImageDomain.Data>? = arrayListOf()
+    private var result: String = Constant.EMPTY_STRING
 
     override fun getViewBinding(): ActivityResultBinding = ActivityResultBinding.inflate(layoutInflater)
 
@@ -22,8 +21,8 @@ class ResultActivity : BaseActivity<ActivityResultBinding>() {
 
         binding.ivResult.setImageURI(imageUri)
         binding.tvResult.text =
-            if (result?.isNotEmpty() == true)
-                "Hasil : ${result?.first()?.name.orEmpty()} dengan deskripsi ${result?.first()?.description.orEmpty()}"
+            if (result.isNotEmpty())
+                "Hasil : $result"
             else
                 "Data Produk Kosong"
     }
@@ -31,7 +30,7 @@ class ResultActivity : BaseActivity<ActivityResultBinding>() {
     private fun setupExtra() {
         val imageUriString = Uri.parse(intent?.extras?.getString(EXTRA_IMAGE_URI).orEmpty())
         imageUri = imageUriString
-        result = intent?.parcelableArrayList(EXTRA_RESULT)
+        result = intent?.extras?.getString(EXTRA_RESULT).orEmpty()
     }
 
     override fun onSupportNavigateUp(): Boolean {

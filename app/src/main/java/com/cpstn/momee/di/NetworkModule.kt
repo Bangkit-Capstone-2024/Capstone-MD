@@ -7,6 +7,7 @@ import com.cpstn.momee.network.ApiConfig
 import com.cpstn.momee.network.datasource.AuthDataSource
 import com.cpstn.momee.network.datasource.ChatDataSource
 import com.cpstn.momee.network.datasource.ProductsDataSource
+import com.cpstn.momee.network.datasource.TenantDataSource
 import com.cpstn.momee.preference.UserPreference
 import com.cpstn.momee.utils.API
 import dagger.Module
@@ -74,6 +75,10 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideProductsDataSource(retrofit: Retrofit): ProductsDataSource = ApiConfig.getApiDataSource(retrofit)
+
+    @Singleton
+    @Provides
+    fun provideTenantDataSource(retrofit: Retrofit): TenantDataSource = ApiConfig.getApiDataSource(retrofit)
 
     @Singleton
     @Provides

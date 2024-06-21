@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/size_10"
     android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/size_10"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,14 +32,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_rating"
-                style="@style/Font.Label1"
-                android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_rating"
-                android:drawablePadding="@dimen/size_8"
-                tools:text="4.8(37)" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_name"
                 style="@style/Font.Body3"
                 android:layout_width="match_parent"
@@ -48,7 +40,6 @@
                 android:maxLines="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_product"
-                app:layout_constraintTop_toBottomOf="@id/tv_rating"
                 tools:text="Baby Walker" />
 
             <androidx.appcompat.widget.AppCompatTextView

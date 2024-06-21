@@ -20,7 +20,7 @@ interface AuthRepository {
     fun register(registerPayload: RegisterPayload): Flow<DataResult<AuthDomain.Result>>
     fun login(email: String, password: String): Flow<DataResult<AuthDomain.Result>>
     fun loginGoogle(token: String): Flow<DataResult<AuthDomain.Result>>
-    fun saveSession(userToken: String, userName: String, userEmail: String)
+    fun saveSession(userToken: String?, userName: String?, userEmail: String?, hasShowOnBoarding: Boolean?)
     fun getUserSession(): Flow<UserDataPreference>
     fun logout(): Flow<DataResult<AuthDomain.Result>>
 }
@@ -86,9 +86,9 @@ class AuthRepositoryImpl(
         }
     }
 
-    override fun saveSession(userToken: String, userName: String, userEmail: String) {
+    override fun saveSession(userToken: String?, userName: String?, userEmail: String?, hasShowOnBoarding: Boolean?) {
         CoroutineScope(Dispatchers.IO).launch {
-            userPreference.saveUserSession(userToken = userToken, userName, userEmail)
+            userPreference.saveUserSession(userToken = userToken, userName, userEmail, hasShowOnBoarding)
         }
     }
 

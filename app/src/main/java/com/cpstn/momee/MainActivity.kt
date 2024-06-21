@@ -110,11 +110,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     Geocoder(this, Locale("id"))
                         .getAddress(lat, long) { address: Address? ->
                             if (address != null) {
-                                viewModel.getCurrentLocation.value =
+                                viewModel.getCurrentLocation.postValue(
                                     UserLocation(
                                         province = address.adminArea.orEmpty(),
                                         city = address.subAdminArea.orEmpty()
                                     )
+                                )
                             }
                         }
                 } else {

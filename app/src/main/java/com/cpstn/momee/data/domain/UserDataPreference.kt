@@ -8,6 +8,7 @@ data class UserDataPreference(
     var userToken: String = Constant.EMPTY_STRING,
     var userName: String = Constant.EMPTY_STRING,
     var userEmail: String = Constant.EMPTY_STRING,
+    var hasShowOnboarding: Boolean = false
 )
 
 data class UserFirebase(

@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import com.cpstn.momee.MainViewModel
 import com.cpstn.momee.databinding.FragmentProfileBinding
 import com.cpstn.momee.network.DataResult
+import com.cpstn.momee.ui.account.tenant.TenantActivity
 import com.cpstn.momee.ui.login.LoginActivity
 import com.cpstn.momee.utils.base.BaseFragment
 import com.cpstn.momee.utils.startActivityTo
@@ -21,6 +22,13 @@ class AccountFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         with(binding) {
             tvUser.text = mainViewModel.currentUserInfo?.userName.orEmpty()
             tvEmail.text = mainViewModel.currentUserInfo?.userEmail.orEmpty()
+
+            containerPersonalData.setOnClickListener {
+
+            }
+            containerTenant.setOnClickListener {
+                startActivityTo(TenantActivity::class.java)
+            }
             containerLogout.setOnClickListener {
                 viewModel.logout()
             }
