@@ -5,7 +5,9 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.cpstn.momee.BuildConfig
 import com.cpstn.momee.network.ApiConfig
 import com.cpstn.momee.network.datasource.AuthDataSource
+import com.cpstn.momee.network.datasource.ChatDataSource
 import com.cpstn.momee.network.datasource.ProductsDataSource
+import com.cpstn.momee.network.datasource.TenantDataSource
 import com.cpstn.momee.preference.UserPreference
 import com.cpstn.momee.utils.API
 import dagger.Module
@@ -16,10 +18,10 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -48,14 +50,13 @@ class NetworkModule {
         @ApplicationContext context: Context
     ): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
-        return if (BuildConfig.DEBUG) {
-            okHttpClient
-                .addInterceptor(authInterceptor)
-                .addInterceptor(ChuckerInterceptor(context))
-                .build()
-        } else {
-            okHttpClient.build()
-        }
+        return okHttpClient
+            .addInterceptor(authInterceptor)
+            .addInterceptor(ChuckerInterceptor(context))
+            .connectTimeout(180L, TimeUnit.SECONDS)
+            .writeTimeout(180L, TimeUnit.SECONDS)
+            .readTimeout(180L, TimeUnit.SECONDS)
+            .build()
     }
 
     @Singleton
@@ -74,4 +75,12 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideProductsDataSource(retrofit: Retrofit): ProductsDataSource = ApiConfig.getApiDataSource(retrofit)
+
+    @Singleton
+    @Provides
+    fun provideTenantDataSource(retrofit: Retrofit): TenantDataSource = ApiConfig.getApiDataSource(retrofit)
+
+    @Singleton
+    @Provides
+    fun provideUserDataSource(retrofit: Retrofit): ChatDataSource = ApiConfig.getApiDataSource(retrofit)
 }

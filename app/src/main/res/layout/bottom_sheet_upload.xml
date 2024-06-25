@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_top_round_10dp"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/size_16">
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="@dimen/size_4"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_round_dark_grey_10dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container_gallery"
+        style="@style/Layout.Horizontal"
+        android:layout_marginHorizontal="@dimen/size_16"
+        android:layout_marginTop="@dimen/size_16"
+        android:background="?attr/selectableItemBackground"
+        android:paddingVertical="@dimen/size_8">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            app:srcCompat="@drawable/ic_galery" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_gallery"
+            style="@style/Font.Paragraph2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_8"
+            android:text="Galeri" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container_camera"
+        style="@style/Layout.Horizontal"
+        android:layout_marginHorizontal="@dimen/size_16"
+        android:layout_marginTop="@dimen/size_16"
+        android:background="?attr/selectableItemBackground"
+        android:paddingVertical="@dimen/size_8"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            app:srcCompat="@drawable/ic_camera" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_camera"
+            style="@style/Font.Paragraph2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_8"
+            android:text="Kamera" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

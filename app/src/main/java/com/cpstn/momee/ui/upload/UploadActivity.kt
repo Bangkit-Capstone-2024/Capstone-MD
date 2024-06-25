@@ -1,10 +1,9 @@
 package com.cpstn.momee.ui.upload
 
-import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -14,15 +13,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.cpstn.momee.R
-import com.cpstn.momee.data.domain.ProductsSearchByImageDomain
 import com.cpstn.momee.databinding.ActivityUploadBinding
-import com.cpstn.momee.network.Result
+import com.cpstn.momee.network.DataResult
 import com.cpstn.momee.network.response.MediaType
-import com.cpstn.momee.ui.result.ResultActivity
+import com.cpstn.momee.ui.product.SearchProductActivity
 import com.cpstn.momee.utils.API
-import com.cpstn.momee.utils.BaseActivity
+import com.cpstn.momee.utils.EXTRAS
 import com.cpstn.momee.utils.FileUtils
 import com.cpstn.momee.utils.FileUtils.Companion.reduceFileImage
+import com.cpstn.momee.utils.ImageClassifierHelper
+import com.cpstn.momee.utils.Permissions
+import com.cpstn.momee.utils.base.BaseActivity
+import com.cpstn.momee.utils.getLabelProduct
 import com.cpstn.momee.utils.startActivityTo
 import com.google.android.material.snackbar.Snackbar
 import com.yalantis.ucrop.UCrop
@@ -30,13 +32,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.io.File
+import java.text.NumberFormat
 import java.util.Date
 
 @AndroidEntryPoint
 class UploadActivity : BaseActivity<ActivityUploadBinding>() {
 
     private val viewModel: UploadViewModel by viewModels()
+
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private var currentImageUri: Uri? = null
     private var tempImageUri: Uri? = null
@@ -56,10 +62,51 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
         setupPermission()
         setupListener()
         setupObserver()
+        setupActionBar()
+    }
+
+    private fun analyzeImage() {
+        imageClassifierHelper = ImageClassifierHelper(
+            this,
+            classifierListener = object : ImageClassifierHelper.ClassifierListener {
+                override fun onResult(result: List<Classifications>?, inferenceTime: Long) {
+                    runOnUiThread {
+                        result?.let {
+                            if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
+                                val sortedData = it.first().categories.sortedByDescending { category -> category?.score }
+                                val resultData = sortedData.first()
+                                val score = NumberFormat.getPercentInstance().format(resultData.score).trim()
+                                showLoading(true)
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    showLoading(false)
+                                    val label = getLabelProduct(resultData.label)
+                                    moveToResult(label)
+                                }, 1750)
+                            }
+                        }
+                    }
+                }
+
+                override fun onError(error: String) {
+                    runOnUiThread {
+                        showToast(error)
+                    }
+                }
+            })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    private fun setupActionBar() = with(binding) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
-        this, REQUIRED_PERMISSION
+        this, Permissions.CAMERA
     ) == PackageManager.PERMISSION_GRANTED
 
     private val launcherGallery =
@@ -98,7 +145,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
 
     private fun setupPermission() {
         if (!allPermissionsGranted()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+            requestPermissionLauncher.launch(Permissions.CAMERA)
         }
         binding.btnGallery.setOnClickListener { startGallery() }
     }
@@ -113,7 +160,10 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
 
     private fun setupListener() = with(binding) {
         btnAnalyze.setOnClickListener {
-            currentImageUri?.let { uri -> analyzeImage(uri) }
+            currentImageUri?.let {
+                analyzeImage()
+                imageClassifierHelper.classifyStaticImage(it)
+            }
         }
     }
 
@@ -125,18 +175,16 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
     }
 
     private fun setupObserver() {
-        viewModel.uploadResult.observe(this) {
+        viewModel.uploadDataResult.observe(this) {
             when (it) {
-                is Result.Loading -> {
+                is DataResult.Loading -> {
                     showLoading(true)
                 }
-                is Result.Error -> {
+                is DataResult.Error -> {
                     showLoading(false)
-                    showToast("Tidak dapat mengupload file")
                 }
-                is Result.Success -> {
+                is DataResult.Success -> {
                     showLoading(false)
-                    moveToResult(it.data?.data ?: listOf())
                 }
             }
         }
@@ -147,19 +195,14 @@ class UploadActivity : BaseActivity<ActivityUploadBinding>() {
         ltScan.isVisible = isLoading
     }
 
-    private fun moveToResult(data: List<ProductsSearchByImageDomain.Data>) {
+    private fun moveToResult(label: String) {
         val bundle = bundleOf(
-            ResultActivity.EXTRA_IMAGE_URI to currentImageUri.toString(),
-            ResultActivity.EXTRA_RESULT to ArrayList(data)
+            EXTRAS.DATA to label
         )
-        startActivityTo(ResultActivity::class.java, bundle)
+        startActivityTo(SearchProductActivity::class.java, bundle)
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }
