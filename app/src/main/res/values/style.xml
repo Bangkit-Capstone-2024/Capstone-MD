@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearanceOverlay.Momee.TextInputLayout.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <!-- Bottom Sheet Theme with rounded corners -->
+    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_white_top_round_10dp</item>
+    </style>
+
+    <style name="Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Layout.Horizontal" parent="Layout">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Layout.Vertical" parent="Layout">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Font" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Font.Body1" parent="Font">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/font_18</item>
+        <item name="android:textColor">@color/color_onBackground</item>
+    </style>
+
+    <style name="Font.Body2" parent="Font">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/color_onBackground</item>
+    </style>
+
+    <style name="Font.Body3" parent="Font">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/font_14</item>
+        <item name="android:textColor">@color/color_onBackground</item>
+    </style>
+
+    <style name="Font.Paragraph1" parent="Font">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:textColor">@color/color_inverseSurface</item>
+    </style>
+
+    <style name="Font.Paragraph2" parent="Font">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/font_14</item>
+        <item name="android:textColor">@color/color_inverseSurface</item>
+    </style>
+
+    <style name="Font.Label1" parent="Font">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:textColor">@color/color_inverseSurface</item>
+    </style>
+
+    <style name="circle">
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>

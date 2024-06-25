@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
     id("kotlin-parcelize")
     kotlin("kapt")
 }
@@ -9,6 +10,22 @@ plugins {
 android {
     namespace = "com.cpstn.momee"
     compileSdk = 34
+
+    packaging {
+        resources {
+            excludes += "META-INF/DEPENDENCIES"
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "momee1234"
+            storeFile = file("/Users/syahrulfahmi/StudioProjects/Capstone-MD/app/src/momee")
+            storePassword = "momee1234"
+        }
+    }
+
 
     defaultConfig {
         applicationId = "com.cpstn.momee"
@@ -21,7 +38,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://api.dev.momee.id/api/v1/\"")
+        }
         release {
+            signingConfig = signingConfigs.getByName("release")
+            buildConfigField("String", "BASE_URL", "\"https://api.momee.id/api/v1/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -32,6 +54,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -51,15 +74,24 @@ dependencies {
     implementation(libs.androidxActivityKttx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.coil)
+    implementation(libs.uCrop)
+    implementation(libs.lottie)
+    implementation(libs.androidx.core)
+
+    // navigation component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     // network
     implementation(libs.retrofit)
     implementation(libs.retrofitGsonConverter)
     implementation(libs.gson)
-    implementation(libs.chucker)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chuckerRelease)
 
     // android architecture component
     implementation(libs.viewModel)
+    implementation(libs.viewModelLifeCycle)
     implementation(libs.liveData)
     implementation(libs.fragmentKtx)
 
@@ -67,9 +99,32 @@ dependencies {
     implementation(libs.coroutinesCore)
     implementation(libs.coroutinesAndroid)
 
+    // datastore
+    implementation(libs.dataStore)
+
     // hilt
     implementation(libs.hiltAndroid)
     kapt(libs.hiltCompiler)
+
+    // firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
+    implementation(libs.google.auth.library.oauth2.http)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    // shimmer
+    implementation(libs.shimmer)
+
+    // tensorflow
+    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.tensorflow.lite.task.vision)
+
+    implementation(libs.viewpagerindicator)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
